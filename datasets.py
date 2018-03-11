@@ -8,7 +8,7 @@ import torch
 import json
 import codecs
 import numpy as np
-import progressbar
+#import progressbar
 import sys
 import torchvision.transforms as transforms
 import argparse
@@ -59,8 +59,9 @@ class PartDataset(data.Dataset):
         self.classes = dict(zip(self.cat, range(len(self.cat))))
         print(self.classes)
         self.num_seg_classes = 0
+        #import pdb; pdb.set_trace()
         if not self.classification:
-            for i in range(len(self.datapath)/50):
+            for i in range(len(self.datapath)):
                 l = len(np.unique(np.loadtxt(self.datapath[i][-1]).astype(np.uint8)))
                 if l > self.num_seg_classes:
                     self.num_seg_classes = l
