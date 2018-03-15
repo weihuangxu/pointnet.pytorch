@@ -16,7 +16,8 @@ import json
 
 
 class PartDataset(data.Dataset):
-    def __init__(self, root, npoints = 2500, classification = False, class_choice = None, train = True):
+    def __init__(self, root, npoints = 2500, classification = False, class_choice = None, train = True, fixSize=False):
+        self.fixSize = fixSize
         self.npoints = npoints
         self.root = root
         self.catfile = os.path.join(self.root, 'synsetoffset2category.txt')
@@ -74,11 +75,11 @@ class PartDataset(data.Dataset):
         point_set = np.loadtxt(fn[1]).astype(np.float32)
         seg = np.loadtxt(fn[2]).astype(np.int64)
         #print(point_set.shape, seg.shape)
-
         choice = np.random.choice(len(seg), self.npoints, replace=True)
         #resample
-        point_set = point_set[choice, :]
-        seg = seg[choice]
+        if self.fixSize:
+            point_set = point_set[choice, :]
+            seg = seg[choice]
         point_set = torch.from_numpy(point_set)
         seg = torch.from_numpy(seg)
         cls = torch.from_numpy(np.array([cls]).astype(np.int64))
