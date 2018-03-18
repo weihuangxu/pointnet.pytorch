@@ -59,10 +59,10 @@ def label(pointCloud, img, fname):
     dist, ind = tree.query(pointCloud)
     stop = time()
     print(str(stop-start))
-    colandRow = centers[ind].astype(int)
+    rowandCol = centers[ind].astype(int)
     
     
-    labelInd = (colandRow[:, 0] - minrow, colandRow[:, 1] - mincol)
+    labelInd = (rowandCol[:, 0] - minrow, rowandCol[:, 1] - mincol)
     
     Label = img[labelInd]
     np.savetxt(fname, Label)
