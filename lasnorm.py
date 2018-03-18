@@ -20,8 +20,8 @@ def normalization(objPath, outPath, labelPath, srcFile, intensity=True):
                 outFile = np.vstack((outFile, i_out))
             bname = os.path.basename(fname)
             name, ext = bname.split('.')
-            np.savetxt(outPath+name+'.pts', outFile.T)
-            np.savetxt(labelPath+name+'.seg', f.Classification.T)
+            np.savetxt(outPath+name+'.pts', outFile.T, fmt='%.6f')
+            np.savetxt(labelPath+name+'.seg', f.Classification.T, fmt='%d')
             print('{}{}.pts and {}{}.seg have been saved.'.format(outPath, name, labelPath, name))
             f.close()
 
